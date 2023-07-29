@@ -13,6 +13,8 @@ class FaceLandmarks:
         height, width, _ = frame.shape
         frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
         result = self.face_mesh.process(frame_rgb)
+        if not result.multi_face_landmarks:
+          raise Exception("No face detected in frame")
 
         facelandmarks = []
         for facial_landmarks in result.multi_face_landmarks:
