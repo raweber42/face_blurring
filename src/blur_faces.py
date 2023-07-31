@@ -2,7 +2,7 @@ import cv2
 import mediapipe as mp
 import numpy as np
 from facial_landmarks import FaceLandmarks
-import globals
+from video_state import video_state
 
 def apply_blur(video_path, resize_factor):
 
@@ -12,7 +12,7 @@ def apply_blur(video_path, resize_factor):
   frame_height = int(capture.get(4))
   fps= int(capture.get(cv2.CAP_PROP_FPS))
 
-  while not globals.stream_stopped:
+  while not video_state.stream_stopped:
     success, frame = capture.read()
     if not success:
       break
@@ -41,7 +41,7 @@ def render_with_blurred_face(frame, convexhull):
   cv2.fillConvexPoly(mask, convexhull, 255)
   
   frame_copy = frame.copy()
-  frame_copy = cv2.blur(frame_copy, (globals.blur_level, globals.blur_level))
+  frame_copy = cv2.blur(frame_copy, (video_state.blur_level, video_state.blur_level))
   face_extracted = cv2.bitwise_and(frame_copy, frame_copy, mask=mask)
 
   background_mask = cv2.bitwise_not(mask)

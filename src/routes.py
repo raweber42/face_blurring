@@ -9,11 +9,10 @@ import imutils
 import time
 import cv2
 
+from video_state import video_state
 from blur_faces import apply_blur
-import globals
 
 app = Flask(__name__)
-
 
 @app.route("/")
 def index():
@@ -27,34 +26,28 @@ def video_feed():
 
 @app.route('/blur_more', methods=['POST'])
 def blur_more():
-  if globals.blur_level <= 100:
-    globals.blur_level = globals.blur_level + 1
+  if video_state.blur_level <= 100:
+    video_state.blur_level = video_state.blur_level + 1
     return "More blur applied"
   else:
     return "Maximum blur level reached"
 
 @app.route('/blur_less', methods=['POST'])
 def blur_less():
-  if globals.blur_level > 1:
-    globals.blur_level = globals.blur_level - 1
+  if video_state.blur_level > 1:
+    video_state.blur_level = video_state.blur_level - 1
     return "Less blur applied"
   else:
     return "Minimum blur level reached"
 
 @app.route('/stop_video', methods=['POST'])
 def stop_video():
-  globals.stream_stopped = True
+  video_state.stream_stopped = True
   print("Video stream stopped")
   return "Video stream stopped"
 
 @app.route('/start_video', methods=['POST'])
 def start_video():
-  globals.stream_stopped = False
+  video_state.stream_stopped = False
   print("Video stream started")
   return "Video stream started"
-
-
-
-if __name__ == '__main__':
-  globals.initialize()
-  app.run()
