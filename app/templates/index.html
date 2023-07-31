@@ -1,0 +1,104 @@
+<html>
+  <head>
+    <title>Neuroprosthetics</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+
+      function blurMore() {
+        $.post("/blur_more", function () {
+        });
+      }
+      function blurLess() {
+        $.post("/blur_less", function () {
+        });
+      }
+      var stream_running = true;
+      $(document).keydown(function (event) {
+        if (event.keyCode === 32) {
+          event.preventDefault();
+          if (stream_running === true) {
+            $.post("/stop_video", function () {
+              console.log("Video stream stopped");
+            });
+          } else {
+            $.post("/start_video", function () {
+              console.log("Video stream started");
+            });
+          }
+        } else if (event.keyCode === 38) {
+          event.preventDefault();
+          blurMore();
+        } else if (event.keyCode === 40) {
+          event.preventDefault();
+          blurLess();
+        }
+      });
+    </script>
+    <style>
+      /* CSS styles here */
+      .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        text-align: center;
+      }
+
+      #video {
+        width: 100%;
+        max-width: 600px;
+      }
+
+      .buttons {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+      }
+
+      .button {
+        padding: 10px 20px;
+        margin: 0 10px;
+        font-size: 16px;
+        background-color: #ccc;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      .button:hover {
+        background-color: #565454;
+      }
+
+      h1 {
+        font-size: 24px;
+        margin-bottom: 20px;
+      }
+
+      @media screen and (max-width: 768px) {
+        .container {
+          height: auto;
+          padding: 20px;
+        }
+        #video {
+          margin-bottom: 20px;
+        }
+        .button {
+          margin-bottom: 10px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Neuroprosthetics MVP</h1>
+      <img src="{{ url_for('video_feed') }}" id="video">
+      <div class="buttons">
+        <button class="button" onclick="blurLess()">Blur less (down arrow)</button>
+        <button class="button" onclick="blurMore()">Blur more (up arrow)</button>
+        <button class="button">Available soon!</button>
+      </div>
+    </div>
+  </body>
+</html>
