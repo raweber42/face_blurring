@@ -14,8 +14,8 @@ RUN pip3 install -r requirements.txt
 COPY . .
 
 ENV FLASK_APP=src/main.py
-EXPOSE 5000
+EXPOSE 8080
 
-CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0"]
+CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0", "--port=8080"]
 
 # for running the container: docker run -d -p 5000:5000 --device /dev/video0 neuroprosthetics_mvp

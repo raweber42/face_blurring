@@ -22,7 +22,7 @@ def index():
 @app.route('/video_feed')
 def video_feed():
   # TODO: replace 0 with video_path
-  return Response(apply_blur(0, 0.75), mimetype='multipart/x-mixed-replace; boundary=frame')
+  return Response(apply_blur("src/templates/benedict_oceans_eleven_cut.mp4", 0.75), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 @app.route('/blur_more', methods=['POST'])
 def blur_more():
