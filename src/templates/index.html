@@ -1,44 +1,23 @@
-<!-- <html>
-  <head>
-    <title>Neuroprosthetics</title>
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script>
-      var stream_running = true;
-      $(document).keydown(function (event) {
-        if (event.keyCode === 32) {
-          event.preventDefault();
-          if (stream_running === true) {
-            $.post("/stop_video", function () {
-              console.log("Video stream stopped");
-            });
-          } else {
-            $.post("/start_video", function () {
-              console.log("Video stream started");
-            });
-          }
-        } else if (event.keyCode === 38) {
-          event.preventDefault();
-          $.post("/blur_more", function () {});
-        } else if (event.keyCode === 40) {
-          event.preventDefault();
-          $.post("/blur_less", function () {});
-        }
-      });
-    </script>
-  </head>
-  <body>
-    <h1>Neuroprosthetics MVP</h1>
-    <img src="{{ url_for('video_feed') }}" id="video">
-    <button onclick="stopVideo()">Stop Video</button>
-  </body>
-</html> -->
-
-
 <html>
   <head>
     <title>Neuroprosthetics</title>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script>
+
+      function changeVideoOne() {
+        var img = document.getElementById("video");
+        img.src = "{{ url_for('video_feed_1') }}";
+      }
+
+      function changeVideoTwo() {
+        var img = document.getElementById("video");
+        img.src = "{{ url_for('video_feed_2') }}";
+      }
+
+      function changeVideoThree() {
+        var img = document.getElementById("video");
+        img.src = "{{ url_for('video_feed_3') }}";
+      }
 
       function blurMore() {
         $.post("/blur_more", function () {
@@ -71,7 +50,6 @@
       });
     </script>
     <style>
-      /* CSS styles here */
       .container {
         display: flex;
         flex-direction: column;
@@ -129,11 +107,11 @@
   <body>
     <div class="container">
       <h1>Neuroprosthetics MVP</h1>
-      <img src="{{ url_for('video_feed') }}" id="video">
+      <img src="{{ url_for('video_feed_1') }}" id="video">
       <div class="buttons">
-        <button class="button" onclick="blurLess()">Blur less (down arrow)</button>
-        <button class="button" onclick="blurMore()">Blur more (up arrow)</button>
-        <button class="button">Available soon!</button>
+        <button class="button" onclick="changeVideoOne()">Sample 1</button>
+        <button class="button" onclick="changeVideoTwo()">Sample 2</button>
+        <button class="button" onclick="changeVideoThree()">Sample 3</button>
       </div>
     </div>
   </body>

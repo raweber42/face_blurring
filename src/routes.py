@@ -19,10 +19,18 @@ def index():
 	# return the rendered template
 	return render_template("index.html")
 
-@app.route('/video_feed')
-def video_feed():
-  # TODO: replace 0 with video_path
+@app.route('/video_feed_1')
+def video_feed_1():
   return Response(apply_blur("src/templates/benedict_oceans_eleven_cut.mp4", 0.75), mimetype='multipart/x-mixed-replace; boundary=frame')
+
+@app.route('/video_feed_2')
+def video_feed_2():
+  return Response(apply_blur("src/templates/sad_woman.mp4", 0.75), mimetype='multipart/x-mixed-replace; boundary=frame')
+
+@app.route('/video_feed_3')
+def video_feed_3():
+  return Response(apply_blur("https://storage.googleapis.com/sample_videos_mvp/serious-job-talk-asian-man.mp4", 0.75), mimetype='multipart/x-mixed-replace; boundary=frame')
+
 
 @app.route('/blur_more', methods=['POST'])
 def blur_more():
