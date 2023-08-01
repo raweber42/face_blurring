@@ -21,15 +21,21 @@ def index():
 
 @app.route('/video_feed_1')
 def video_feed_1():
+  video_state.stream_stopped = True
+  video_state.stream_stopped = False
   return Response(apply_blur("src/templates/benedict_oceans_eleven_cut.mp4", 0.75), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 @app.route('/video_feed_2')
 def video_feed_2():
+  video_state.stream_stopped = True
+  video_state.stream_stopped = False
   return Response(apply_blur("src/templates/sad_woman.mp4", 0.75), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 @app.route('/video_feed_3')
 def video_feed_3():
-  return Response(apply_blur("https://storage.googleapis.com/sample_videos_mvp/serious-job-talk-asian-man.mp4", 0.75), mimetype='multipart/x-mixed-replace; boundary=frame')
+  video_state.stream_stopped = True
+  video_state.stream_stopped = False
+  return Response(apply_blur("src/templates/red_hat.mp4", 0.75), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
 @app.route('/blur_more', methods=['POST'])
